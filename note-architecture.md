@@ -1,0 +1,2 @@
+- tout dans app.tsx, pas de composants
+- 
