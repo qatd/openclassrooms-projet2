@@ -3,3 +3,7 @@
 - il manque page detail des pays
 - le projet ne build pas quand run `npm run build`
 - Lint fail quand on fait `npm run lint`
+
+#### fix
+- corriger build
+> - ajouter route country, utiliser composant Country

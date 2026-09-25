@@ -374,6 +374,7 @@ export const App: FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/country/:id" element={<Country />} />
       </Routes>
     </BrowserRouter>
   )
