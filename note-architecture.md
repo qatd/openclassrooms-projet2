@@ -18,34 +18,33 @@
 - il ne devrait y avoir qu'une seule source pour les données, Country utilise les données directement, et Home les utilisent aussi de son côté. Il faudrait une seule source de data. Comme indiqué au dessus, un custom hook ou une lib de fetching pour l'app.
 
 #### conception nouvelle architecture - arborescence
+- public/
+    - data/
+        - olympics.json — données mockées
 - src/
+    - main.tsx — point d'entrée
+    - index.css
     - app/
-        - main.tsx — point d'entrée
-        - App.tsx — racine
+        - App.tsx
         - router.tsx
-        - index.css
         - models/
             - olympics.ts — interfaces pour country, participation
-        - data/
-            - olympics.ts — données mockés
         - api/
-            - olympics.ts — getOlympics() : données mockés. (remplaçable par fetch pour le cas d'un vrai backend)
-        - hooks/
+            - olympics.ts — récupère données avec fetch
+        - hooks/ — point d'accès data pour les composants
             - useOlympics.ts — data / loading / error, utilisé par Home et Country
         - utils/
             - olympics.ts — logique pour calculer total medailles, athlètes..
             - charts.ts — data + options des graphiques
-        - lib/
-            - chart.ts — ChartJS.register(...), fait une seule fois
-        - components/
+        - components/ — composants dumb : reçoivent props, uniquement apparence
             - Indicator.tsx — item qui affiche les stats, réutilisable
             - MedalsPieChart.tsx
             - MedalsLineChart.tsx
             - Loader.tsx
             - ErrorMessage.tsx
-        - pages/
+        - pages/ — composants smart : récupèrent data via hooks
             - Home.tsx
-            - Country.tsx — avec fallback « pays introuvable »
+            - Country.tsx — avec fallback pour pays inexistants
             - NotFound.tsx
 
 #### conception nouvelle architecture - explications
