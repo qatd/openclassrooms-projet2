@@ -1,0 +1,29 @@
+##### arborescence
+- public/
+    - data/
+        - olympics.json - données mockées
+- src/
+    - main.tsx - point d'entrée
+    - index.css
+    - app/
+        - App.tsx
+        - router.tsx
+        - models/
+            - olympics.ts - interfaces pour country, participation
+        - api/
+            - olympics.ts - récupère données avec fetch (l'utilisation de fetch prépare le terrain pour le vrai backend. Il faudra remplacer le json actuel par l'url de l'api)
+        - hooks/ - point d'accès data pour les composants
+            - useOlympics.ts - data / loading / error, utilisé par Home et Country
+        - utils/
+            - olympics.ts - logique pour calculer total medailles, athlètes..
+            - charts.ts - data + options des graphiques
+        - components/ - composants dumb : reçoivent props, uniquement apparence
+            - Indicator.tsx - item qui affiche les stats
+            - MedalsPieChart.tsx
+            - MedalsLineChart.tsx
+            - Loader.tsx
+            - ErrorMessage.tsx
+        - pages/ - composants smart : récupèrent data via hooks
+            - Home.tsx
+            - Country.tsx - avec fallback pour pays inexistants
+            - NotFound.tsx
