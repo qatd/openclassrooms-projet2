@@ -39,7 +39,7 @@
             - olympics.ts - logique pour calculer total medailles, athlètes..
             - charts.ts - data + options des graphiques
         - components/ - composants dumb : reçoivent props, uniquement apparence
-            - Indicator.tsx - item qui affiche les stats, réutilisable
+            - Indicator.tsx - item qui affiche les stats
             - MedalsPieChart.tsx
             - MedalsLineChart.tsx
             - Loader.tsx
@@ -59,6 +59,10 @@
         - useEffect -> hooks/useOlympics.ts & api/olympics.ts
         - card item dupliqué -> components/Indicator.tsx
         - chartData / chartOptions -> utils/charts.ts
+    - Country
+        - olympicsData.find -> hooks/useOlympics.ts
+        - médailles / athlètes reduce -> utils/olympics.ts
+        - evolutionData / evolutionOptions -> utils/charts.ts
     - Pie / Line -> components/MedalsPieChart, components/MedalsLineChart.tsx
     - div html loading -> components/loader.tsx
     - routes -> router.tsx
