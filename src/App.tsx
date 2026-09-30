@@ -1,55 +1,33 @@
 import type { FC } from 'react'
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom'
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-} from 'chart.js'
-import { Pie, Line } from 'react-chartjs-2'
 import { useOlympics } from './app/hooks/useOlympics'
 import {
   getGamesEditionsCount,
   getTotalAthletes,
   getTotalMedals,
 } from './app/utils/olympics'
-import {
-  buildMedalsLineData,
-  buildMedalsPieData,
-  medalsLineOptions,
-  medalsPieOptions,
-} from './app/utils/charts'
-
-ChartJS.register(
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-)
+import { Indicator, type IndicatorProps } from './app/components/Indicator'
+import { MedalsPieChart } from './app/components/MedalsPieChart'
+import { MedalsLineChart } from './app/components/MedalsLineChart'
+import { Loader } from './app/components/Loader'
+import { ErrorMessage } from './app/components/ErrorMessage'
 
 // Anti-pattern 2 — Composant incohérent avec le nom du fichier (ex. Home dans App.tsx).
 const Home: FC = () => {
   const { data, loading, error } = useOlympics()
 
   if (loading) {
-    return <div>Chargement...</div>
+    return <Loader />
   }
 
   if (error) {
-    return <div>Erreur : {error}</div>
+    return <ErrorMessage message={error} />
   }
 
-  const totalParticipatingCountries = data.length
-  const totalGamesEditions = getGamesEditionsCount(data)
+  const indicators: IndicatorProps[] = [
+    { title: 'Pays participants', value: data.length, color: 'blue' },
+    { title: 'Éditions des JO', value: getGamesEditionsCount(data), color: 'green' },
+  ]
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
@@ -65,26 +43,14 @@ const Home: FC = () => {
           </p>
         </div>
 
-        {/* Anti-pattern 8 — Cartes dupliquées — extraire en composant réutilisable (Indicator.tsx). */}
-        <div className="mb-2">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-center mb-2">
-            <h3 className="text-xl font-semibold mb-2">Pays participants</h3>
-            <p className="text-4xl font-bold text-blue-400">
-              {totalParticipatingCountries}
-            </p>
-          </div>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
-            <h3 className="text-xl font-semibold mb-2">Éditions des JO</h3>
-            <p className="text-4xl font-bold text-green-400">
-              {totalGamesEditions}
-            </p>
-          </div>
+        <div className="mb-2 space-y-2">
+          {indicators.map((indicator) => (
+            <Indicator key={indicator.title} {...indicator} />
+          ))}
         </div>
 
         <div className="bg-gray-800 p-8 rounded-lg shadow-xl">
-          <div style={{ height: '400px' }}>
-            <Pie data={buildMedalsPieData(data)} options={medalsPieOptions} />
-          </div>
+          <MedalsPieChart countries={data} />
         </div>
 
         <div className="text-sm text-gray-400">
@@ -103,11 +69,11 @@ const Country: FC = () => {
   const { data, loading, error } = useOlympics()
 
   if (loading) {
-    return <div>Chargement...</div>
+    return <Loader />
   }
 
   if (error) {
-    return <div>Erreur : {error}</div>
+    return <ErrorMessage message={error} />
   }
 
   // find renvoie undefined si l'id n'existe pas dans les données
@@ -117,40 +83,25 @@ const Country: FC = () => {
     return <div>Pays introuvable</div>
   }
 
-  const totalMedals = getTotalMedals(country)
-  const totalAthletes = getTotalAthletes(country)
-  const totalParticipations = country.participations.length
+  const indicators: IndicatorProps[] = [
+    { title: 'Participations', value: country.participations.length, color: 'blue' },
+    { title: 'Total médailles', value: getTotalMedals(country), color: 'yellow' },
+    { title: 'Total athlètes', value: getTotalAthletes(country), color: 'green' },
+  ]
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">{country.name}</h1>
 
-        {/* Anti-pattern 8 — Cartes dupliquées avec Home — extraire en composant réutilisable (Indicator.tsx). */}
-        <div className="mb-2">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg mb-2">
-            <h3 className="text-xl font-semibold mb-2">Participations</h3>
-            <p className="text-4xl font-bold text-blue-400">
-              {totalParticipations}
-            </p>
-          </div>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg mb-2">
-            <h3 className="text-xl font-semibold mb-2">Total médailles</h3>
-            <p className="text-4xl font-bold text-yellow-400">{totalMedals}</p>
-          </div>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold mb-2">Total athlètes</h3>
-            <p className="text-4xl font-bold text-green-400">{totalAthletes}</p>
-          </div>
+        <div className="mb-2 space-y-2">
+          {indicators.map((indicator) => (
+            <Indicator key={indicator.title} {...indicator} />
+          ))}
         </div>
 
         <div className="bg-gray-800 p-8 rounded-lg shadow-xl">
-          <div style={{ height: '400px' }}>
-            <Line
-              data={buildMedalsLineData(country.participations)}
-              options={medalsLineOptions}
-            />
-          </div>
+          <MedalsLineChart participations={country.participations} />
         </div>
 
         <div className="text-sm text-gray-400">
