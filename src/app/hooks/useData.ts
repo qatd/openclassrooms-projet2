@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { Country } from '../models/olympics'
 import { getOlympics } from '../api/olympics'
 
-export const useOlympics = () => {
+export const useData = () => {
     const [data, setData] = useState<Country[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)

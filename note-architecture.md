@@ -34,7 +34,7 @@
         - api/
             - olympics.ts - récupère données avec fetch (l'utilisation de fetch prépare le terrain pour le vrai backend. Il faudra remplacer le json actuel par l'url de l'api)
         - hooks/ - point d'accès data pour les composants
-            - useOlympics.ts - data / loading / error, utilisé par Home et Country
+            - useData.ts - data / loading / error, utilisé par Home et Country
         - utils/
             - olympics.ts - logique pour calculer total medailles, athlètes..
             - charts.ts - data + options des graphiques
@@ -56,11 +56,11 @@
     - Country -> pages/Country.tsx
     - calculateTotalMedals -> utils/olympics.tsx
     - Home
-        - useEffect -> hooks/useOlympics.ts & api/olympics.ts
+        - useEffect -> hooks/useData.ts & api/olympics.ts
         - card item dupliqué -> components/Indicator.tsx
         - chartData / chartOptions -> utils/charts.ts
     - Country
-        - olympicsData.find -> hooks/useOlympics.ts
+        - olympicsData.find -> hooks/useData.ts
         - médailles / athlètes reduce -> utils/olympics.ts
         - evolutionData / evolutionOptions -> utils/charts.ts
     - Pie / Line -> components/MedalsPieChart, components/MedalsLineChart.tsx

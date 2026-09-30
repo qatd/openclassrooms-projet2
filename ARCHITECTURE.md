@@ -13,7 +13,7 @@
         - api/
             - olympics.ts - récupère données avec fetch (l'utilisation de fetch prépare le terrain pour le vrai backend. Il faudra remplacer le json actuel par l'url de l'api)
         - hooks/ - point d'accès data pour les composants
-            - useOlympics.ts - data / loading / error, utilisé par Home et Country
+            - useData.ts - data / loading / error, utilisé par Home et Country
         - utils/
             - olympics.ts - logique pour calculer total medailles, athlètes..
             - charts.ts - data + options des graphiques

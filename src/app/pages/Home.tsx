@@ -1,4 +1,4 @@
-import { useOlympics } from '../hooks/useOlympics'
+import { useData } from '../hooks/useData'
 import { getGamesEditionsCount } from '../utils/olympics'
 import { Indicator, type IndicatorProps } from '../components/Indicator'
 import { MedalsPieChart } from '../components/MedalsPieChart'
@@ -6,7 +6,7 @@ import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
 
 export const Home = () => {
-    const { data, loading, error } = useOlympics()
+    const { data, loading, error } = useData()
 
     if (loading) {
         return <Loader />

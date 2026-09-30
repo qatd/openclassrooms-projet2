@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { useOlympics } from '../hooks/useOlympics'
+import { useData } from '../hooks/useData'
 import { getTotalAthletes, getTotalMedals } from '../utils/olympics'
 import { Indicator, type IndicatorProps } from '../components/Indicator'
 import { MedalsLineChart } from '../components/MedalsLineChart'
@@ -8,7 +8,7 @@ import { ErrorMessage } from '../components/ErrorMessage'
 
 export const Country = () => {
     const { id } = useParams()
-    const { data, loading, error } = useOlympics()
+    const { data, loading, error } = useData()
 
     if (loading) {
         return <Loader />
