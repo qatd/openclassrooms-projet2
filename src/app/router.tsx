@@ -6,6 +6,6 @@ import { NotFound } from './pages/NotFound'
 export const router = createBrowserRouter([
     { path: '/', element: <Home /> },
     { path: '/country/:id', element: <Country /> },
-    // toute URL inconnue affiche la page 404
+    // les URLs inconnues affichent la page 404 / not found
     { path: '*', element: <NotFound /> },
 ])
