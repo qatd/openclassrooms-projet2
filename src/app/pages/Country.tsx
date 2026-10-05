@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useData } from '../hooks/useData'
 import { getTotalAthletes, getTotalMedals } from '../utils/olympics'
-import { Indicator, type IndicatorProps } from '../components/Indicator'
+import type { IndicatorProps } from '../components/Indicator'
+import { HeaderComponent } from '../components/HeaderComponent'
 import { MedalsLineChart } from '../components/MedalsLineChart'
 import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
@@ -32,15 +33,9 @@ export const Country = () => {
     ]
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white p-8">
+        <div className="min-h-screen bg-white text-gray-800 p-8">
             <div className="max-w-6xl mx-auto">
-                <h1 className="text-4xl font-bold mb-8">{country.name}</h1>
-
-                <div className="mb-2 space-y-2">
-                    {indicators.map((indicator) => (
-                        <Indicator key={indicator.title} {...indicator} />
-                    ))}
-                </div>
+                <HeaderComponent title={country.name} indicators={indicators} />
 
                 <div className="bg-gray-800 p-8 rounded-lg shadow-xl">
                     <MedalsLineChart participations={country.participations} />

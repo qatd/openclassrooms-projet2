@@ -1,6 +1,11 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/inter';
 
+/* couleur principale des maquettes -> génère les classes bg-primary, border-primary, text-primary... */
+@theme {
+  --color-primary: #04838f;
+}
+
 html {
   font-family: 'Inter Variable', sans-serif;
 }

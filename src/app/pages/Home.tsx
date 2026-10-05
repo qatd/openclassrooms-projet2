@@ -1,6 +1,7 @@
 import { useData } from '../hooks/useData'
 import { getGamesEditionsCount } from '../utils/olympics'
-import { Indicator, type IndicatorProps } from '../components/Indicator'
+import type { IndicatorProps } from '../components/Indicator'
+import { HeaderComponent } from '../components/HeaderComponent'
 import { MedalsPieChart } from '../components/MedalsPieChart'
 import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
@@ -22,23 +23,18 @@ export const Home = () => {
     ]
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white p-8">
+        <div className="min-h-screen bg-white text-gray-800 p-8">
             <div className="max-w-6xl mx-auto">
-                <h1 className="text-4xl font-bold mb-8">
-                    Historique des Jeux Olympiques - TéléSport
-                </h1>
+                <HeaderComponent
+                    title="Historique des Jeux Olympiques - TéléSport"
+                    indicators={indicators}
+                />
 
                 <div className="mb-8">
                     <p className="text-lg">
                         Bienvenue sur la page dédiée à l'historique des Jeux Olympiques.
                         Explorez les performances des pays au fil des années.
                     </p>
-                </div>
-
-                <div className="mb-2 space-y-2">
-                    {indicators.map((indicator) => (
-                        <Indicator key={indicator.title} {...indicator} />
-                    ))}
                 </div>
 
                 <div className="bg-gray-800 p-8 rounded-lg shadow-xl">
