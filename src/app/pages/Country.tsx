@@ -33,17 +33,18 @@ export const Country = () => {
     ]
 
     return (
-        <div className="min-h-screen bg-white text-gray-800 p-8">
-            <div className="max-w-6xl mx-auto">
+        <div className="min-h-screen bg-white px-4 py-8 text-gray-800 md:px-8">
+            {/* colonne centrée, l'espacement entre les blocs est géré par gap */}
+            <div className="mx-auto flex max-w-6xl flex-col gap-6 md:gap-8">
                 <HeaderComponent title={country.name} indicators={indicators} />
 
-                <div className="bg-gray-800 p-8 rounded-lg shadow-xl">
+                <div className="bg-gray-800 p-4 rounded-lg shadow-xl md:p-8">
                     <MedalsLineChart participations={country.participations} />
                 </div>
 
-                <div className="text-sm text-gray-400">
-                    <p>Données des 5 dernières éditions des Jeux Olympiques</p>
-                </div>
+                <p className="text-center text-sm text-gray-400">
+                    Données des 5 dernières éditions des Jeux Olympiques
+                </p>
             </div>
         </div>
     )
