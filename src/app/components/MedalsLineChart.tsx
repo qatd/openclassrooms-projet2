@@ -18,8 +18,9 @@ interface MedalsLineChartProps {
     participations: Participation[]
 }
 
+// conteneur en "relative" car requis par Chart.js pour redimensionnement avec la fenetre
 export const MedalsLineChart = ({ participations }: MedalsLineChartProps) => (
-    <div style={{ height: '400px' }}>
+    <div className="relative h-80 md:h-96">
         <Line data={buildMedalsLineData(participations)} options={medalsLineOptions} />
     </div>
 )

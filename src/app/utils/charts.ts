@@ -2,9 +2,12 @@ import type { ChartData, ChartOptions } from 'chart.js'
 import type { Country, Participation } from '../models/olympics'
 import { getTotalMedals } from './olympics'
 
-// thème sombre partagé par les deux graphiques
-const TEXT_COLOR = 'white'
-const GRID_COLOR = 'rgba(255, 255, 255, 0.1)'
+
+// thème clair pour les deux graphiques
+const TEXT_COLOR = '#374151' // gray-700 de Tailwind
+const GRID_COLOR = 'rgba(0, 0, 0, 0.1)'
+// couleur qui viennent du pdf fourni en specs, car pas de maquette Figma..
+const CHART_COLORS = ['#793d52', '#89a1db', '#9780a1', '#bfe0f1', '#b8cbe7', '#956065']
 
 export const buildMedalsPieData = (countries: Country[]): ChartData<'pie'> => ({
     labels: countries.map((c) => c.name),
@@ -12,20 +15,8 @@ export const buildMedalsPieData = (countries: Country[]): ChartData<'pie'> => ({
         {
             label: 'Total des médailles',
             data: countries.map(getTotalMedals),
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.6)',
-                'rgba(54, 162, 235, 0.6)',
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
-                'rgba(153, 102, 255, 0.6)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-            ],
+            backgroundColor: CHART_COLORS,
+            borderColor: 'white',
             borderWidth: 1,
         },
     ],
@@ -49,8 +40,8 @@ export const buildMedalsLineData = (participations: Participation[]): ChartData<
             {
                 label: 'Nombre de médailles',
                 data: sorted.map((p) => p.medalsCount),
-                borderColor: 'rgb(75, 192, 192)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: CHART_COLORS[0],
+                backgroundColor: CHART_COLORS[0],
                 tension: 0.3,
             },
         ],

@@ -38,11 +38,11 @@ export const Country = () => {
             <div className="mx-auto flex max-w-6xl flex-col gap-6 md:gap-8">
                 <HeaderComponent title={country.name} indicators={indicators} />
 
-                <div className="bg-gray-800 p-4 rounded-lg shadow-xl md:p-8">
+                <div className="rounded-lg bg-gray-50 p-4 shadow md:p-8">
                     <MedalsLineChart participations={country.participations} />
                 </div>
 
-                <p className="text-center text-sm text-gray-400">
+                <p className="text-center text-sm text-gray-600">
                     Données des 5 dernières éditions des Jeux Olympiques
                 </p>
             </div>

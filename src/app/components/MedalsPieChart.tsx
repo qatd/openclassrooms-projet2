@@ -10,8 +10,9 @@ interface MedalsPieChartProps {
     countries: Country[]
 }
 
+// conteneur "relative" dédié au canvas : requis par Chart.js pour se redimensionner avec la fenêtre
 export const MedalsPieChart = ({ countries }: MedalsPieChartProps) => (
-    <div style={{ height: '400px' }}>
+    <div className="relative h-80 md:h-96">
         <Pie data={buildMedalsPieData(countries)} options={medalsPieOptions} />
     </div>
 )

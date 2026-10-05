@@ -36,11 +36,11 @@ export const Home = () => {
                     Explorez les performances des pays au fil des années.
                 </p>
 
-                <div className="bg-gray-800 p-4 rounded-lg shadow-xl md:p-8">
+                <div className="rounded-lg bg-gray-50 p-4 shadow md:p-8">
                     <MedalsPieChart countries={data} />
                 </div>
 
-                <p className="text-center text-sm text-gray-400">
+                <p className="text-center text-sm text-gray-600">
                     Cliquez sur un pays pour voir ses détails
                 </p>
             </div>
