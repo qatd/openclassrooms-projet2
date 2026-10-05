@@ -27,9 +27,9 @@ export const Country = () => {
     }
 
     const indicators: IndicatorProps[] = [
-        { title: 'Participations', value: country.participations.length, color: 'blue' },
-        { title: 'Total médailles', value: getTotalMedals(country), color: 'yellow' },
-        { title: 'Total athlètes', value: getTotalAthletes(country), color: 'green' },
+        { title: 'Participations', value: country.participations.length },
+        { title: 'Total médailles', value: getTotalMedals(country) },
+        { title: 'Total athlètes', value: getTotalAthletes(country) },
     ]
 
     return (

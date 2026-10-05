@@ -18,8 +18,8 @@ export const Home = () => {
     }
 
     const indicators: IndicatorProps[] = [
-        { title: 'Pays participants', value: data.length, color: 'blue' },
-        { title: 'Éditions des JO', value: getGamesEditionsCount(data), color: 'green' },
+        { title: 'Pays participants', value: data.length },
+        { title: 'Éditions des JO', value: getGamesEditionsCount(data) },
     ]
 
     return (
