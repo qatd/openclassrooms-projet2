@@ -22,6 +22,7 @@ Tout le code de l'app est dans `src/app/`, organisé par rôle.
             - olympics.ts - logique pour calculer total medailles, athlètes..
             - charts.ts - data + options des graphiques
         - components/ - composants dumb : reçoivent props, uniquement apparence
+            - HeaderComponent.tsx - header commun des pages
             - Indicator.tsx - item qui affiche les stats
             - MedalsPieChart.tsx
             - MedalsLineChart.tsx
@@ -34,16 +35,20 @@ Tout le code de l'app est dans `src/app/`, organisé par rôle.
 
 ##### composants
 - smart (pages/)
-    - Home - récupère les données, affiche les indicateurs + le graphique des médailles par pays
-    - Country - récupère les données, trouve le pays via l'id de l'url, affiche ses indicateurs + évolution des médailles
+    - Home - récupère les données, calcule indicateurs, affiche HeaderComponent + le graphique des médailles par pays
+    - Country - récupère les données, trouve le pays via l'id de l'url, calcule ses indicateurs, affiche HeaderComponent + évolution des médailles
 - page simple
     - NotFound - s'affichée si url inconnue
 - dumb (components/)
+    - HeaderComponent - titre de la page + liste d'indicateurs, réutilisé par Home et Country (props : title, indicators)
     - Indicator - carte avec titre et value (props : title, value)
     - MedalsPieChart - camembert médailles par pays (props : countries)
     - MedalsLineChart - courbe médailles par année (props : participations)
     - Loader - affiché pendant le loading
     - ErrorMessage - affiche message d'erreur (props : message)
+
+##### style & responsive
+- couleur principale (index.css), couleurs charts (utils/charts.ts)
 
 ##### données : hook useData + service api pour bien séparer les usages
 - chemin des données : page -> useData -> api/olympics.ts -> olympics.json
