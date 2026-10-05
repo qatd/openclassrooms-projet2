@@ -39,7 +39,7 @@ Tout le code de l'app est dans `src/app/`, organisé par rôle.
 - page simple
     - NotFound - s'affichée si url inconnue
 - dumb (components/)
-    - Indicator - carte avec titre et value (props : title, value, color)
+    - Indicator - carte avec titre et value (props : title, value)
     - MedalsPieChart - camembert médailles par pays (props : countries)
     - MedalsLineChart - courbe médailles par année (props : participations)
     - Loader - affiché pendant le loading
