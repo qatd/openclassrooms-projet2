@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useData } from '../hooks/useData'
 import { getGamesEditionsCount } from '../utils/olympics'
 import type { IndicatorProps } from '../components/Indicator'
@@ -8,6 +9,9 @@ import { ErrorMessage } from '../components/ErrorMessage'
 
 export const Home = () => {
     const { data, loading, error } = useData()
+    const navigate = useNavigate()
+
+    const handleCountryClick = (id: number) => navigate(`/country/${id}`)
 
     if (loading) {
         return <Loader />
@@ -37,7 +41,7 @@ export const Home = () => {
                 </p>
 
                 <div className="rounded-lg bg-gray-50 p-4 shadow md:p-8">
-                    <MedalsPieChart countries={data} />
+                    <MedalsPieChart countries={data} onCountryClick={handleCountryClick} />
                 </div>
 
                 <p className="text-center text-sm text-gray-600">

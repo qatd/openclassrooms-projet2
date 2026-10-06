@@ -1,4 +1,4 @@
-import type { ChartData, ChartOptions } from 'chart.js'
+import type { ActiveElement, ChartData, ChartEvent, ChartOptions } from 'chart.js'
 import type { Country, Participation } from '../models/olympics'
 import { getTotalMedals } from './olympics'
 
@@ -22,13 +22,23 @@ export const buildMedalsPieData = (countries: Country[]): ChartData<'pie'> => ({
     ],
 })
 
-export const medalsPieOptions: ChartOptions<'pie'> = {
+export const buildMedalsPieOptions = (
+    countries: Country[],
+    onCountryClick: (id: number) => void,
+): ChartOptions<'pie'> => ({
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
         legend: { position: 'bottom', labels: { color: TEXT_COLOR } },
     },
-}
+    onClick: (_event: ChartEvent, elements: ActiveElement[]) => {
+        if (elements.length > 0) {
+            const index = elements[0].index
+            const country = countries[index]
+            onCountryClick(country.id)
+        }
+    },
+})
 
 export const buildMedalsLineData = (participations: Participation[]): ChartData<'line'> => {
     // tri chronologique, sinon l'axe X va de 2020 à 2004
