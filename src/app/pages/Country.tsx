@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useData } from '../hooks/useData'
 import { getTotalAthletes, getTotalMedals } from '../utils/olympics'
 import type { IndicatorProps } from '../components/Indicator'
@@ -34,8 +34,15 @@ export const Country = () => {
 
     return (
         <div className="min-h-screen bg-white px-4 py-8 text-gray-800 md:px-8">
-            {/* colonne centrée, l'espacement entre les blocs est géré par gap */}
             <div className="mx-auto flex max-w-6xl flex-col gap-6 md:gap-8">
+                
+                <Link
+                    to="/"
+                    className="self-start rounded-lg border-2 border-primary px-4 py-2 font-semibold text-primary hover:bg-primary hover:text-white"
+                >
+                    Retour
+                </Link>
+
                 <HeaderComponent title={country.name} indicators={indicators} />
 
                 <div className="rounded-lg bg-gray-50 p-4 shadow md:p-8">
