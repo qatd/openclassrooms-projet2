@@ -1,1 +1,3 @@
-export const NotFound = () => <div>Page introuvable</div>
+import { ErrorMessage } from '../components/ErrorMessage'
+
+export const NotFound = () => <ErrorMessage message="page introuvable" showBackLink />

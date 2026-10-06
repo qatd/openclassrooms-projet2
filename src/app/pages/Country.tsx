@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useData } from '../hooks/useData'
 import { getTotalAthletes, getTotalMedals } from '../utils/olympics'
 import type { IndicatorProps } from '../components/Indicator'
@@ -6,6 +6,7 @@ import { HeaderComponent } from '../components/HeaderComponent'
 import { MedalsLineChart } from '../components/MedalsLineChart'
 import { Loader } from '../components/Loader'
 import { ErrorMessage } from '../components/ErrorMessage'
+import { BackLink } from '../components/BackLink'
 
 export const Country = () => {
     const { id } = useParams()
@@ -16,14 +17,14 @@ export const Country = () => {
     }
 
     if (error) {
-        return <ErrorMessage message={error} />
+        return <ErrorMessage message={error} showBackLink />
     }
 
     // find renvoie undefined si l'id n'existe pas dans les données
     const country = data.find((c) => c.id === Number(id))
 
     if (!country) {
-        return <div>Pays introuvable</div>
+        return <ErrorMessage message="ce pays n'existe pas" showBackLink />
     }
 
     const indicators: IndicatorProps[] = [
@@ -35,13 +36,7 @@ export const Country = () => {
     return (
         <div className="min-h-screen bg-white px-4 py-8 text-gray-800 md:px-8">
             <div className="mx-auto flex max-w-6xl flex-col gap-6 md:gap-8">
-                
-                <Link
-                    to="/"
-                    className="self-start rounded-lg border-2 border-primary px-4 py-2 font-semibold text-primary hover:bg-primary hover:text-white"
-                >
-                    Retour
-                </Link>
+                <BackLink />
 
                 <HeaderComponent title={country.name} indicators={indicators} />
 
