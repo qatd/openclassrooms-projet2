@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useData } from '../hooks/useData'
 import { getTotalAthletes, getTotalMedals } from '../utils/olympics'
 import type { IndicatorProps } from '../components/Indicator'
@@ -11,6 +12,18 @@ import { BackLink } from '../components/BackLink'
 export const Country = () => {
     const { id } = useParams()
     const { data, loading, error } = useData()
+    const navigate = useNavigate()
+
+    // find renvoie undefined si l'id de l'url n'existe pas (ou pas encore) dans les données
+    const country = data.find((c) => c.id === Number(id))
+    // données bien chargées, mais aucun pays avec cet id
+    const isUnknownCountry = !loading && !error && !country
+
+    useEffect(() => {
+        if (isUnknownCountry) {
+            navigate('/404')
+        }
+    }, [isUnknownCountry, navigate])
 
     if (loading) {
         return <Loader />
@@ -20,11 +33,8 @@ export const Country = () => {
         return <ErrorMessage message={error} showBackLink />
     }
 
-    // find renvoie undefined si l'id n'existe pas dans les données
-    const country = data.find((c) => c.id === Number(id))
-
     if (!country) {
-        return <ErrorMessage message="ce pays n'existe pas" showBackLink />
+        return null
     }
 
     const indicators: IndicatorProps[] = [
