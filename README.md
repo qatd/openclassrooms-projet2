@@ -1,122 +1,69 @@
-# TéléSport - Olympic Games History Dashboard
+# TéléSport - Historique des Jeux Olympiques
 
-Interactive web application to visualize historical performance data of countries in the Olympic Games.
+Dashboard React qui affiche les performances des pays aux Jeux Olympiques :
+- **Accueil** : nombre de pays, nombre d'éditions et camembert des médailles par pays. Un clic sur un pays ouvre sa page détail.
+- **Détail pays** (`/country/:id`) : participations, total médailles, total athlètes et courbe d'évolution des médailles.
+- **Page 404** : URL inconnue ou pays inexistant.
 
-## 🚀 Features
+## Prérequis
 
-- **Interactive Dashboard**: View medal counts by country with interactive charts
-- **Country Details**: Explore detailed statistics for each participating country
-- **Data Visualization**: Interactive charts powered by Chart.js
-- **Responsive Design**: Optimized for desktop and mobile devices
-- **Modern Stack**: Built with React 19, TypeScript, and Tailwind CSS
+- **Node.js** 22 LTS ou plus
+- **npm** (installé avec Node.js)
 
-## 📋 Prerequisites
-
-- **Node.js** 22 LTS or higher
-- **npm** (included with Node.js)
-
-## 🛠️ Installation
-
-Clone the repository:
+## Installation
 
 ```bash
-git clone https://github.com/openclassrooms/p2-dfsjs.git
-cd p2-dfsjs
-```
-
-Install dependencies:
-
-```bash
+git clone https://github.com/qatd/openclassrooms-projet2.git
+cd openclassrooms-projet2
 npm install
 ```
 
-## 🎯 Usage
-
-### Development Server
-
-Start the development server:
+## Lancer le projet
 
 ```bash
-npm run dev
+npm run dev       # serveur de dev -> http://localhost:5173
+npm run build     # vérification TypeScript + build de production
+npm run lint      # vérification ESLint
+npm run preview   # sert le build de production
 ```
 
-The application will be available at [http://localhost:5173](http://localhost:5173)
+## Stack
 
-### Production Build
+- **React 19** + **React Compiler** (mémoïsation automatique)
+- **TypeScript** (mode strict)
+- **Vite 7** (serveur de dev et build)
+- **React Router 6** (navigation)
+- **Chart.js 4** + **react-chartjs-2** (graphiques)
+- **Tailwind CSS 4** (style et responsive)
+- **ESLint** (qualité du code)
 
-Build the application for production:
-
-```bash
-npm run build
-```
-
-### Linting
-
-Run the linter to check code quality:
-
-```bash
-npm run lint
-```
-
-## 📁 Project Structure
+## Structure du projet
 
 ```
-p2-dfsjs/
-├── public/              # Static public assets
-├── src/
-│   ├── App.tsx         # Main application component
-│   ├── main.tsx        # React entry point
-│   └── index.css       # Global styles
-├── index.html          # Main HTML page
-├── package.json        # Project dependencies
-├── tsconfig.json       # TypeScript configuration
-├── vite.config.ts      # Vite configuration
-├── tailwind.config.js  # Tailwind CSS configuration
-└── .eslintrc.cjs       # ESLint configuration
+public/data/olympics.json   # données mockées
+src/
+├── main.tsx                # point d'entrée
+├── index.css               # Tailwind + couleur principale
+└── app/
+    ├── App.tsx
+    ├── router.tsx          # routes : /, /country/:id, * (404)
+    ├── models/             # interfaces TypeScript (Country, Participation)
+    ├── api/                # récupération des données (fetch)
+    ├── hooks/              # useData : data / loading / error
+    ├── utils/              # calculs (médailles, athlètes) + config des graphiques
+    ├── components/         # composants d'affichage réutilisables
+    └── pages/              # une page par route : Home, Country, NotFound
 ```
 
-## 🔧 Tech Stack
+Le détail des composants et du flux de données est dans [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-- **React 19** - UI library with latest features
-- **TypeScript** - Static type checking
-- **Vite 5** - Fast build tool and dev server
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **React Router 6** - Client-side routing
-- **Chart.js** - Interactive data visualization
-- **ESLint** - Code quality and consistency
+## Choix techniques
 
-## 📊 Data
-
-The application currently uses mock data to simulate Olympic Games statistics. This architecture is designed to facilitate future integration with a REST API backend.
-
-## 🎨 Design
-
-The application features:
-
-- Clean, modern interface optimized for data visualization
-- Responsive layout adapting to all screen sizes
-- Interactive charts with hover effects
-- Smooth navigation between pages
-
-## 📚 Documentation
-
-For more information on the technologies used:
-
-- [React Documentation](https://react.dev)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Vite Guide](https://vitejs.dev)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [React Router Documentation](https://reactrouter.com)
-- [Chart.js Documentation](https://www.chartjs.org/docs/latest/)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📝 License
-
-This project is available for educational and personal use.
-
----
-
-**Built with React 19 + TypeScript + Vite + Tailwind CSS**
+- **Découpage par rôle** : les pages récupèrent les données ("smart"), les composants ne font que les afficher à partir de leurs props ("dumb").
+- **Un seul point d'accès aux données** : les pages passent toujours par le hook `useData`, qui appelle `api/olympics.ts`. Pour brancher une vraie API REST, il suffira de changer l'URL dans `api/`.
+- **États gérés** : chargement (`Loader`), erreur de chargement (`ErrorMessage`), URL inconnue ou pays inexistant (redirection vers la page 404).
+- **Navigation sans rechargement** avec React Router : `useNavigate` au clic sur le graphique, `Link` pour le bouton Retour.
+- **Chart.js** : chaque graphique n'enregistre que les éléments dont il a besoin. Les données et options des graphiques sont dans `utils/charts.ts`.
+- **Tailwind CSS 4** : pas de fichier de config, la couleur principale est définie avec `@theme` dans `index.css`. Le responsive est mobile-first (classes `md:`).
+- **TypeScript strict** : interfaces dans `models/`, aucun `any`.
+- **React Compiler** : pas de `useMemo` / `useCallback` manuels, le compilateur s'en charge.
