@@ -28,24 +28,26 @@ Tout le code de l'app est dans `src/app/`, organisé par rôle.
             - MedalsLineChart.tsx
             - Loader.tsx
             - ErrorMessage.tsx
+            - BackLink.tsx
         - pages/ - une page par route. Home et Country récupèrent la data, ils sont "smart"
             - Home.tsx
-            - Country.tsx - avec fallback pour pays inexistants
+            - Country.tsx - redirige vers 404 si pays existe pas
             - NotFound.tsx
 
 ##### composants
 - smart (pages/)
-    - Home - récupère les données, calcule indicateurs, affiche HeaderComponent + le graphique des médailles par pays
-    - Country - récupère les données, trouve le pays via l'id de l'url, calcule ses indicateurs, affiche HeaderComponent + évolution des médailles
+    - Home - récupère les données, calcule indicateurs, affiche HeaderComponent + le graphique des médailles par pays, redirige vers country quand clique sur element du graphique
+    - Country - récupère les données, trouve le pays via l'id de l'url, calcule ses indicateurs, affiche HeaderComponent + évolution médailles
 - page simple
-    - NotFound - s'affichée si url inconnue
+    - NotFound - s'affiche si url inconnue ou pays inexistant
 - dumb (components/)
     - HeaderComponent - titre de la page + liste d'indicateurs, réutilisé par Home et Country (props : title, indicators)
     - Indicator - carte avec titre et value (props : title, value)
-    - MedalsPieChart - camembert médailles par pays (props : countries)
+    - MedalsPieChart - camembert médailles par pays (props : countries, onCountryClick)
     - MedalsLineChart - courbe médailles par année (props : participations)
     - Loader - affiché pendant le loading
-    - ErrorMessage - affiche message d'erreur (props : message)
+    - ErrorMessage - affiche message d'erreur (props : message, showBackLink)
+    - BackLink - bouton retour, utilisé par Country et ErrorMessage
 
 ##### style & responsive
 - couleur principale (index.css), couleurs charts (utils/charts.ts)
